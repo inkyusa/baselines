@@ -63,7 +63,8 @@ class Monitor(Wrapper):
             self.needs_reset = True
             eprew = sum(self.rewards)
             eplen = len(self.rewards)
-            epinfo = {"r": round(eprew, 6), "l": eplen, "t": round(time.time() - self.tstart, 6)}
+            #epinfo = {"r": round(eprew, 6), "l": eplen, "t": round(time.time() - self.tstart, 6)}
+            epinfo = {"r": round(eprew, 6), "l": eplen, "t": round(time.time() - self.tstart, 6) ,"rp":round(info['rp'],2),"rlv":round(info['rlv'],3),"rav":round(info['rav'],3),"ra":round(info['ra'],3),"rlive":round(info['rlive'],2)}
             for k in self.info_keywords:
                 epinfo[k] = info[k]
             self.episode_rewards.append(eprew)
@@ -111,7 +112,7 @@ class ResultsWriter(object):
         if isinstance(header, dict):
             header = '# {} \n'.format(json.dumps(header))
         self.f.write(header)
-        self.logger = csv.DictWriter(self.f, fieldnames=('r', 'l', 't')+tuple(extra_keys))
+        self.logger = csv.DictWriter(self.f, fieldnames=('r', 'l', 't','rp','rlv','rav','ra','rlive')+tuple(extra_keys))
         self.logger.writeheader()
         self.f.flush()
 
