@@ -64,7 +64,9 @@ class Monitor(Wrapper):
             eprew = sum(self.rewards)
             eplen = len(self.rewards)
             #epinfo = {"r": round(eprew, 6), "l": eplen, "t": round(time.time() - self.tstart, 6)}
-            epinfo = {"r": round(eprew, 6), "l": eplen, "t": round(time.time() - self.tstart, 6) ,"rp":round(info['rp'],2),"rlv":round(info['rlv'],3),"rav":round(info['rav'],3),"rctrl":round(info['rctrl'],3)}
+            #epinfo = {"r": round(eprew, 8), "l": eplen, "t": round(time.time() - self.tstart, 8) ,"rp":round(info['rp'],8),"rlv":round(info['rlv'],8),"rav":round(info['rav'],8),"rctrl":round(info['rctrl'],8)}
+            epinfo = {"r": round(eprew, 8), "l": eplen, "t": round(time.time() - self.tstart, 8) ,"rwp":round(info['rwp'],8),"rwlv":round(info['rwlv'],8),"rwav":round(info['rwav'],8),"rwctrl":round(info['rwctrl'],8),"obx":round(info['obx'],6),"oby":round(info['oby'],6),"obz":round(info['obz'],6),"obvx":round(info['obvx'],6),"obvy":round(info['obvy'],6),"obvz":round(info['obvz'],6)}
+
             for k in self.info_keywords:
                 epinfo[k] = info[k]
             self.episode_rewards.append(eprew)
@@ -113,7 +115,9 @@ class ResultsWriter(object):
             header = '# {} \n'.format(json.dumps(header))
         self.f.write(header)
         #self.logger = csv.DictWriter(self.f, fieldnames=('r', 'l', 't')+tuple(extra_keys))
-        self.logger = csv.DictWriter(self.f, fieldnames=('r', 'l', 't','rp','rlv','rav','rctrl')+tuple(extra_keys))
+        #self.logger = csv.DictWriter(self.f, fieldnames=('r', 'l', 't','rp','rlv','rav','rctrl')+tuple(extra_keys))
+        self.logger = csv.DictWriter(self.f, fieldnames=('r', 'l', 't','rwp','rwlv','rwav','rwctrl','obx','oby','obz','obvx','obvy','obvz')+tuple(extra_keys))
+        
         self.logger.writeheader()
         self.f.flush()
 
